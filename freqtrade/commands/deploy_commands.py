@@ -11,6 +11,7 @@ from freqtrade.constants import USERPATH_STRATEGIES
 from freqtrade.enums import RunMode
 from freqtrade.exceptions import OperationalException
 from freqtrade.misc import render_template, render_template_with_fallback
+from security import safe_requests
 
 
 logger = logging.getLogger(__name__)
@@ -114,7 +115,7 @@ def download_and_install_ui(dest_folder: Path, dl_url: str, version: str):
     from zipfile import ZipFile
 
     logger.info(f"Downloading {dl_url}")
-    resp = requests.get(dl_url).content
+    resp = safe_requests.get(dl_url).content
     dest_folder.mkdir(parents=True, exist_ok=True)
     with ZipFile(BytesIO(resp)) as zf:
         for fn in zf.filelist:
@@ -153,7 +154,7 @@ def get_ui_download_url(version: Optional[str] = None) -> Tuple[str, str]:
     # URL not found - try assets url
     if not dl_url:
         assets = r[0]['assets_url']
-        resp = requests.get(assets)
+        resp = safe_requests.get(assets)
         r = resp.json()
         dl_url = r[0]['browser_download_url']
 
