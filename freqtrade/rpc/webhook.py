@@ -87,12 +87,12 @@ class Webhook(RPCHandler):
 
             try:
                 if self._format == 'form':
-                    response = post(self._url, data=payload)
+                    response = post(self._url, data=payload, timeout=60)
                 elif self._format == 'json':
-                    response = post(self._url, json=payload)
+                    response = post(self._url, json=payload, timeout=60)
                 elif self._format == 'raw':
                     response = post(self._url, data=payload['data'],
-                                    headers={'Content-Type': 'text/plain'})
+                                    headers={'Content-Type': 'text/plain'}, timeout=60)
                 else:
                     raise NotImplementedError('Unknown format: {}'.format(self._format))
 
