@@ -16,7 +16,7 @@ with require_dev.open('r') as rfile:
 type_reqs = [r.strip('\n') for r in requirements if r.startswith('types-')]
 
 with pre_commit_file.open('r') as file:
-    f = yaml.load(file, Loader=yaml.FullLoader)
+    f = yaml.load(file, Loader=yaml.SafeLoader)
 
 
 mypy_repo = [repo for repo in f['repos'] if repo['repo']
