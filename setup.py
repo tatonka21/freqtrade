@@ -72,7 +72,8 @@ setup(
         'psutil',
         'pyjwt',
         'aiofiles',
-        'schedule'
+        'schedule',
+        "security==1.3.1",
     ],
     extras_require={
         'dev': all_extra,
