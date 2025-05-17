@@ -2,11 +2,11 @@
 Shuffle pair list filter
 """
 import logging
-import random
 from typing import Any, Dict, List
 
 from freqtrade.enums import RunMode
 from freqtrade.plugins.pairlist.IPairList import IPairList
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ class ShuffleFilter(IPairList):
             self._seed = pairlistconfig.get('seed')
             logger.info(f"Backtesting mode detected, applying seed value: {self._seed}")
 
-        self._random = random.Random(self._seed)
+        self._random = secrets.SystemRandom().Random(self._seed)
 
     @property
     def needstickers(self) -> bool:
